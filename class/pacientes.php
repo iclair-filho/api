@@ -14,9 +14,9 @@ class Paciente{
     public $cartaoSus;
     public $endereco;
     public $telefone;
-    public $postoatendimento;
+    public $postoAtendimento;
     public $dataNascimento;
-    public $created;
+    public $datacadPaciente;
 
     // Conexão com o Banco
     public function __construct($db){
@@ -41,11 +41,10 @@ class Paciente{
                     nomePacientes = :nomePacientes, 
                     cpf = :cpf, 
                     cartaoSus = :cartaoSus, 
-                    telefone = :telefone, 
                     endereco = :endereco, 
+                    telefone = :telefone, 
                     postoAtendimento = :postoAtendimento, 
-                    dataNascimento = :dataNascimento, 
-                    created = :created";
+                    dataNascimento = :dataNascimento";
     
         $stmt = $this->conn->prepare($sql);
     
@@ -57,7 +56,7 @@ class Paciente{
         $this->telefone=htmlspecialchars(strip_tags($this->telefone));
         $this->postoAtendimento=htmlspecialchars(strip_tags($this->postoAtendimento));
         $this->dataNascimento=htmlspecialchars(strip_tags($this->dataNascimento));
-        $this->created=htmlspecialchars(strip_tags($this->created));
+        
     
         // bind data
         $stmt->bindParam(":nomePacientes", $this->nomePacientes);
@@ -67,7 +66,7 @@ class Paciente{
         $stmt->bindParam(":telefone", $this->telefone);
         $stmt->bindParam(":postoAtendimento", $this->postoAtendimento);
         $stmt->bindParam(":dataNascimento", $this->dataNascimento);
-        $stmt->bindParam(":created", $this->created);
+        
     
         if($stmt->execute()){
             return true;
@@ -87,7 +86,6 @@ class Paciente{
                     telefone = :telefone, 
                     postoAtendimento = :postoAtendimento, 
                     dataNascimento = :dataNascimento, 
-                    created = :created
                 WHERE
                     idcadPacientes = :idcadPacientes";
     
@@ -101,7 +99,6 @@ class Paciente{
         $this->telefone=htmlspecialchars(strip_tags($this->telefone));
         $this->postoAtendimento=htmlspecialchars(strip_tags($this->postoAtendimento));
         $this->dataNascimento=htmlspecialchars(strip_tags($this->dataNascimento));
-        $this->created=htmlspecialchars(strip_tags($this->created));
         $this->idcadPacientes=htmlspecialchars(strip_tags($this->idcadPacientes));
     
         // bind data
@@ -112,7 +109,6 @@ class Paciente{
         $stmt->bindParam(":telefone", $this->telefone);
         $stmt->bindParam(":postoAtendimento", $this->postoAtendimento);
         $stmt->bindParam(":dataNascimento", $this->dataNascimento);
-        $stmt->bindParam(":created", $this->created);
         $stmt->bindParam(":idcadPacientes", $this->idcadPacientes);
     
         if($stmt->execute()){
@@ -137,7 +133,7 @@ class Paciente{
         $this->telefone = $cadpacientes['telefone'];
         $this->postoAtendimento = $cadpacientes['postoAtendimento'];
         $this->dataNascimento = $cadpacientes['dataNascimento'];
-        $this->created = $cadpacientes['created'];
+        $this->datacadPaciente = $cadpacientes['datacadPaciente'];
     }
 
 

@@ -1,4 +1,14 @@
 <?php
+
+
+    //Cabeçalho Obrigatório para leitura em JSON
+    header("Access-Control-Allow-Origin: *");
+    header("Content-Type: application/json; charset=UTF-8");
+    header("Access-Control-Allow-Methods: POST");
+    header("Access-Control-Max-Age: 3600");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    
+
     include_once '../../config/db.php';
     include_once '../../class/pacientes.php';
 
@@ -23,7 +33,7 @@
     $paciente->telefone = $data->telefone;
     $paciente->postoAtendimento = $data->postoAtendimento;
     $paciente->dataNascimento = $data->dataNascimento;
-    $paciente->created = date('Y-m-d H:i:s');
+    $paciente->datacadPaciente = date('Y-m-d H:i:s');
     
     if($paciente->Update()){
         echo json_encode ('Paciente atualizado com Sucesso!.');

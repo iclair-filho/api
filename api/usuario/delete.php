@@ -15,19 +15,19 @@
     //Instanciar as Classes
     $database = new Database();
     $db = $database->getConnection();
-    $paciente = new Paciente($db);
+    $usuario = new Usuarios($db);
 
     //Arquivo ou URL para Buscar os dados Inputs
-    $pacienteJson = file_get_contents("php://input");
+    $usuarioJson = file_get_contents("php://input");
 
        
-    $data = json_decode($pacienteJson);
+    $data = json_decode($usuarioJson);
 
-    $paciente->idcadPacientes = $data->idcadPacientes;
+    $usuario->idcadUsuarios = $data->idcadUsuarios;
 
     
-    if($paciente->Delete()){
-        echo json_encode("Paciente Deletado.");
+    if($usuario->Delete()){
+        echo json_encode("Usuario Deletado.");
     } else{
         echo json_encode("Não foi possível deletar o paciente!");
     }

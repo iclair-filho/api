@@ -1,4 +1,9 @@
 <?php
+
+    //Cabeçalho Obrigatório para leitura em JSON
+    header("Access-Control-Allow-Origin: *");
+    header("Content-Type: application/json; charset=UTF-8");
+
     include_once '../../config/db.php';
     include_once '../../class/pacientes.php';
 
@@ -15,6 +20,8 @@
         //Criação de Arrays para apresentação da Json
         $pacienteArray = array();
         $pacienteArray["body"] = array();
+
+        //Objeto para retornar o número de pacientes cadastrados
         $pacienteArray["npaciente"] = $npacientes;
 
         while ($paciente = $pacientes->fetch(PDO::FETCH_ASSOC)) {
@@ -31,7 +38,7 @@
                 "telefone" => $telefone,
                 "postoAtendimento" => $postoAtendimento,
                 "dataNascimento" => $dataNascimento,
-                "created" => $created
+                "datacadPaciente" => $datacadPaciente
             );
 
             //Retorna da Array

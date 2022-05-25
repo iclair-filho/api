@@ -10,28 +10,25 @@
     
     // Importar as Classes
     include_once '../../config/db.php';
-    include_once '../../class/pacientes.php';
+    include_once '../../class/usuarios.php';
 
     //Instanciar as Classes
     $database = new Database();
     $db = $database->getConnection();
-    $paciente = new Paciente($db);
-    $paciente->idcadPacientes = isset($_GET['idcadPacientes']) ? $_GET['idcadPacientes'] : die();
+    $usuario = new Usuarios($db);
+    $usuario->idcadUsuarios = isset($_GET['idcadUsuarios']) ? $_GET['idcadUsuarios'] : die();
     
-    $paciente->SingleOn();
+    $usuario->SingleOn();
     
-    if ($paciente->nome != NULL) {
+    if ($usuario->nome != NULL) {
            //Construção da Array
             $e = array(
-                "idcadPacientes" => $paciente->idcadPacientes,
-                "nomePacientes" => $paciente->nomePacientes,
-                "cpf" => $paciente->cpf,
-                "cartaoSus" => $paciente->cartaoSus,
-                "endereco" => $paciente->endereco,
-                "telefone" => $paciente->telefone,
-                "postoAtendimento" => $paciente->postoAtendimento,
-                "dataNascimento" => $paciente->dataNascimento,
-                "datacadPaciente" => $paciente->datacadPaciente
+                "idcadUsuarios" => $usuario->idcadUsuarios,
+                "nomeUsuarios" => $usuario->nomeUsuarios,
+                "cpf" => $usuario->cpf,
+                "senha" => $usuario->senha,
+                "tipo" => $usuario->tipo,
+                "datacadUsuario" => $usuario->datacadUsuarios
             );
 
         
