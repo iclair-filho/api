@@ -6,20 +6,21 @@
     $database = new Database();
     $db = $database->getConnection();
     $paciente = new Paciente($db);
-    $paciente->id = isset($_GET['id']) ? $_GET['id'] : die();
+    $paciente->idcadPacientes = isset($_GET['idcadPacientes']) ? $_GET['idcadPacientes'] : die();
     
     $paciente->SingleOn();
     
     if ($paciente->nome != NULL) {
            //Construção da Array
             $e = array(
-                "id" => $paciente->id,
-                "nome" => $paciente->nome,
+                "idcadPacientes" => $paciente->idcadPacientes,
+                "nomePacientes" => $paciente->nomePacientes,
                 "cpf" => $paciente->cpf,
-                "cardsus" => $paciente->cardsus,
+                "cartaoSus" => $paciente->cartaoSus,
                 "endereco" => $paciente->endereco,
-                "postoatendimento" => $paciente->postoatendimento,
-                "dtnascimento" => $paciente->dtnascimento,
+                "telefone" => $paciente->telefone,
+                "postoAtendimento" => $paciente->postoAtendimento,
+                "dataNascimento" => $paciente->dataNascimento,
                 "created" => $paciente->created
             );
 
