@@ -8,7 +8,7 @@ class Paciente{
     private $db_tabela = "cadpacientes";
 
     //Colunas da Tabelas
-    public $id;
+    public $idcadPacientes;
     public $nomePacientes;
     public $cpf;
     public $cartaoSus;
@@ -89,7 +89,7 @@ class Paciente{
                     dataNascimento = :dataNascimento, 
                     created = :created
                 WHERE
-                    id = :id";
+                    idcadPacientes = :idcadPacientes";
     
         $stmt = $this->conn->prepare($sql);
     
@@ -102,7 +102,7 @@ class Paciente{
         $this->postoAtendimento=htmlspecialchars(strip_tags($this->postoAtendimento));
         $this->dataNascimento=htmlspecialchars(strip_tags($this->dataNascimento));
         $this->created=htmlspecialchars(strip_tags($this->created));
-        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->idcadPacientes=htmlspecialchars(strip_tags($this->idcadPacientes));
     
         // bind data
         $stmt->bindParam(":nomePacientes", $this->nomePacientes);
@@ -113,7 +113,7 @@ class Paciente{
         $stmt->bindParam(":postoAtendimento", $this->postoAtendimento);
         $stmt->bindParam(":dataNascimento", $this->dataNascimento);
         $stmt->bindParam(":created", $this->created);
-        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":idcadPacientes", $this->idcadPacientes);
     
         if($stmt->execute()){
             return true;
@@ -124,9 +124,9 @@ class Paciente{
     //Lista apenas um registro
 
     public function SingleOn(){
-        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE id = ?";
+        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE idcadPacientes = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $this->idcadPacientes);
         $stmt->execute();
         $cadpacientes = $stmt->fetch(PDO::FETCH_ASSOC);
         
@@ -146,15 +146,15 @@ class Paciente{
         $sql = "DELETE FROM
                     ". $this->db_tabela ."
                 WHERE
-                    id = :id";
+                    idcadPacientes = :idcadPacientes";
     
         $stmt = $this->conn->prepare($sql);
     
         // sanitize
-        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->idcadPacientes=htmlspecialchars(strip_tags($this->idcadPacientes));
     
         // bind data
-        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":idcadPacientes", $this->idcadPacientes);
     
         if($stmt->execute()){
             return true;
