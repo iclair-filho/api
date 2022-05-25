@@ -23,13 +23,14 @@
 
             //Construção da Array
             $e = array(
-                "id" => $id,
-                "nome" => $nome,
+                "idcadPacientes" => $idcadPacientes,
+                "nomePacientes" => $nomePacientes,
                 "cpf" => $cpf,
-                "cardsus" => $cardsus,
+                "cartaoSus" => $cartaoSus,
                 "endereco" => $endereco,
-                "postoatendimento" => $postoatendimento,
-                "dtnascimento" => $dtnascimento,
+                "telefone" => $telefone,
+                "postoAtendimento" => $postoAtendimento,
+                "dataNascimento" => $dataNascimento,
                 "created" => $created
             );
 
