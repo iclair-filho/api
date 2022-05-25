@@ -13,7 +13,7 @@
        
     $data = json_decode($pacienteJson);
 
-    $paciente->id = $data->id;
+    $paciente->idcadPacientes = $data->idcadPacientes;
 
     
     if($paciente->Delete()){
