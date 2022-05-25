@@ -15,10 +15,11 @@
 
     $paciente->nome = $data->nome;
     $paciente->cpf = $data->cpf;
-    $paciente->cardsus = $data->cardsus;
+    $paciente->cartaoSus = $data->cartaoSus;
     $paciente->endereco = $data->endereco;
-    $paciente->postoatendimento = $data->postoatendimento;
-    $paciente->dtnascimento = $data->dtnascimento;
+    $paciente->telefone = $data->telefone;
+    $paciente->postoAtendimento = $data->postoAtendimento;
+    $paciente->dataNascimento = $data->dataNascimento;
     $paciente->created = date('Y-m-d H:i:s');
     
     if($paciente->Save()){
