@@ -5,16 +5,17 @@ class Paciente{
     private $conn;
 
     //Nome da Tabela
-    private $db_tabela = "pacientes";
+    private $db_tabela = "cadpacientes";
 
     //Colunas da Tabelas
     public $id;
-    public $nome;
+    public $nomePacientes;
     public $cpf;
-    public $cardsus;
+    public $cartaoSus;
     public $endereco;
+    public $telefone;
     public $postoatendimento;
-    public $dtnascimento;
+    public $dataNascimento;
     public $created;
 
     // Conexão com o Banco
@@ -37,32 +38,35 @@ class Paciente{
         $sql = "INSERT INTO
                     ". $this->db_tabela ."
                 SET
-                    nome = :nome, 
+                    nomePacientes = :nomePacientes, 
                     cpf = :cpf, 
-                    cardsus = :cardsus, 
+                    cartaoSus = :cartaoSus, 
+                    telefone = :telefone, 
                     endereco = :endereco, 
-                    postoatendimento = :postoatendimento, 
-                    dtnascimento = :dtnascimento, 
+                    postoAtendimento = :postoAtendimento, 
+                    dataNascimento = :dataNascimento, 
                     created = :created";
     
         $stmt = $this->conn->prepare($sql);
     
         // sanitize
-        $this->nome=htmlspecialchars(strip_tags($this->nome));
+        $this->nomePacientes=htmlspecialchars(strip_tags($this->nomePacientes));
         $this->cpf=htmlspecialchars(strip_tags($this->cpf));
-        $this->cardsus=htmlspecialchars(strip_tags($this->cardsus));
+        $this->cartaoSus=htmlspecialchars(strip_tags($this->cartaoSus));
         $this->endereco=htmlspecialchars(strip_tags($this->endereco));
-        $this->postoatendimento=htmlspecialchars(strip_tags($this->postoatendimento));
-        $this->dtnascimento=htmlspecialchars(strip_tags($this->dtnascimento));
+        $this->telefone=htmlspecialchars(strip_tags($this->telefone));
+        $this->postoAtendimento=htmlspecialchars(strip_tags($this->postoAtendimento));
+        $this->dataNascimento=htmlspecialchars(strip_tags($this->dataNascimento));
         $this->created=htmlspecialchars(strip_tags($this->created));
     
         // bind data
-        $stmt->bindParam(":nome", $this->nome);
+        $stmt->bindParam(":nomePacientes", $this->nomePacientes);
         $stmt->bindParam(":cpf", $this->cpf);
-        $stmt->bindParam(":cardsus", $this->cardsus);
+        $stmt->bindParam(":cartaoSus", $this->cartaoSus);
         $stmt->bindParam(":endereco", $this->endereco);
-        $stmt->bindParam(":postoatendimento", $this->postoatendimento);
-        $stmt->bindParam(":dtnascimento", $this->dtnascimento);
+        $stmt->bindParam(":telefone", $this->telefone);
+        $stmt->bindParam(":postoAtendimento", $this->postoAtendimento);
+        $stmt->bindParam(":dataNascimento", $this->dataNascimento);
         $stmt->bindParam(":created", $this->created);
     
         if($stmt->execute()){
@@ -76,12 +80,13 @@ class Paciente{
         $sql = "UPDATE INTO
                     ". $this->db_tabela ."
                 SET
-                    nome = :nome, 
+                    nomePacientes = :nomePacientes, 
                     cpf = :cpf, 
-                    cardsus = :cardsus, 
+                    cartaoSus = :cartaoSus, 
                     endereco = :endereco, 
-                    postoatendimento = :postoatendimento, 
-                    dtnascimento = :dtnascimento, 
+                    telefone = :telefone, 
+                    postoAtendimento = :postoAtendimento, 
+                    dataNascimento = :dataNascimento, 
                     created = :created
                 WHERE
                     id = :id";
@@ -89,22 +94,24 @@ class Paciente{
         $stmt = $this->conn->prepare($sql);
     
         // sanitize
-        $this->nome=htmlspecialchars(strip_tags($this->nome));
+        $this->nomePacientes=htmlspecialchars(strip_tags($this->nomePacientes));
         $this->cpf=htmlspecialchars(strip_tags($this->cpf));
-        $this->cardsus=htmlspecialchars(strip_tags($this->cardsus));
+        $this->cartaoSus=htmlspecialchars(strip_tags($this->cartaoSus));
         $this->endereco=htmlspecialchars(strip_tags($this->endereco));
-        $this->postoatendimento=htmlspecialchars(strip_tags($this->postoatendimento));
-        $this->dtnascimento=htmlspecialchars(strip_tags($this->dtnascimento));
+        $this->telefone=htmlspecialchars(strip_tags($this->telefone));
+        $this->postoAtendimento=htmlspecialchars(strip_tags($this->postoAtendimento));
+        $this->dataNascimento=htmlspecialchars(strip_tags($this->dataNascimento));
         $this->created=htmlspecialchars(strip_tags($this->created));
         $this->id=htmlspecialchars(strip_tags($this->id));
     
         // bind data
-        $stmt->bindParam(":nome", $this->nome);
+        $stmt->bindParam(":nomePacientes", $this->nomePacientes);
         $stmt->bindParam(":cpf", $this->cpf);
-        $stmt->bindParam(":cardsus", $this->cardsus);
+        $stmt->bindParam(":cartaoSus", $this->cartaoSus);
         $stmt->bindParam(":endereco", $this->endereco);
-        $stmt->bindParam(":postoatendimento", $this->postoatendimento);
-        $stmt->bindParam(":dtnascimento", $this->dtnascimento);
+        $stmt->bindParam(":telefone", $this->telefone);
+        $stmt->bindParam(":postoAtendimento", $this->postoAtendimento);
+        $stmt->bindParam(":dataNascimento", $this->dataNascimento);
         $stmt->bindParam(":created", $this->created);
         $stmt->bindParam(":id", $this->id);
     
@@ -121,15 +128,16 @@ class Paciente{
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
-        $paciente = $stmt->fetch(PDO::FETCH_ASSOC);
+        $cadpacientes = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        $this->nome = $paciente['nome'];
-        $this->cpf = $paciente['cpf'];
-        $this->cardsus = $paciente['cardsus'];
-        $this->endereco = $paciente['endereco'];
-        $this->postoatendimento = $paciente['postoatendimento'];
-        $this->dtnascimento = $paciente['dtnascimento'];
-        $this->created = $paciente['created'];
+        $this->nomePacientes = $cadpacientes['nomePacientes'];
+        $this->cpf = $cadpacientes['cpf'];
+        $this->cartaoSus = $cadpacientes['cartaoSus'];
+        $this->endereco = $cadpacientes['endereco'];
+        $this->telefone = $cadpacientes['telefone'];
+        $this->postoAtendimento = $cadpacientes['postoAtendimento'];
+        $this->dataNascimento = $cadpacientes['dataNascimento'];
+        $this->created = $cadpacientes['created'];
     }
 
 
