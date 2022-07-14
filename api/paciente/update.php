@@ -18,21 +18,18 @@
     $paciente = new Paciente($db);
 
     //Arquivo ou URL para Buscar os dados Inputs
-    $pacienteJson = file_get_contents("php://input");
+    $data = json_decode(file_get_contents("php://input"), TRUE);
 
-       
-    $data = json_decode($pacienteJson);
-
-    $paciente->idcadPacientes = $data->idcadPacientes;
+    $paciente->cpf = $data['cpf'];
 
     //Valores a atualizar
-    $paciente->nomePacientes = $data->nomePacientes;
-    $paciente->cpf = $data->cpf;
-    $paciente->cartaoSus = $data->cartaoSus;
-    $paciente->endereco = $data->endereco;
-    $paciente->telefone = $data->telefone;
-    $paciente->postoAtendimento = $data->postoAtendimento;
-    $paciente->dataNascimento = $data->dataNascimento;
+    $paciente->nomePacientes = $data['nomePacientes'];
+    $paciente->cpf = $data['cpf'];
+    $paciente->cartaoSus = $data['cartaoSus'];
+    $paciente->endereco = $data['endereco'];
+    $paciente->telefone = $data['telefone'];
+    $paciente->postoAtendimento = $data['postoAtendimento'];
+    $paciente->dataNascimento = $data['dataNascimento'];
     $paciente->datacadPaciente = date('Y-m-d H:i:s');
     
     if($paciente->Update()){

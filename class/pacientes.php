@@ -80,36 +80,33 @@ class Paciente{
                     ". $this->db_tabela ."
                 SET
                     nomePacientes = :nomePacientes, 
-                    cpf = :cpf, 
                     cartaoSus = :cartaoSus, 
                     endereco = :endereco, 
                     telefone = :telefone, 
                     postoAtendimento = :postoAtendimento, 
                     dataNascimento = :dataNascimento, 
                 WHERE
-                    idcadPacientes = :idcadPacientes";
+                    cpf = :cpf";
     
         $stmt = $this->conn->prepare($sql);
     
         // sanitize
         $this->nomePacientes=htmlspecialchars(strip_tags($this->nomePacientes));
-        $this->cpf=htmlspecialchars(strip_tags($this->cpf));
         $this->cartaoSus=htmlspecialchars(strip_tags($this->cartaoSus));
         $this->endereco=htmlspecialchars(strip_tags($this->endereco));
         $this->telefone=htmlspecialchars(strip_tags($this->telefone));
         $this->postoAtendimento=htmlspecialchars(strip_tags($this->postoAtendimento));
         $this->dataNascimento=htmlspecialchars(strip_tags($this->dataNascimento));
-        $this->idcadPacientes=htmlspecialchars(strip_tags($this->idcadPacientes));
+        $this->cpf=htmlspecialchars(strip_tags($this->cpf));
     
         // bind data
         $stmt->bindParam(":nomePacientes", $this->nomePacientes);
-        $stmt->bindParam(":cpf", $this->cpf);
         $stmt->bindParam(":cartaoSus", $this->cartaoSus);
         $stmt->bindParam(":endereco", $this->endereco);
         $stmt->bindParam(":telefone", $this->telefone);
         $stmt->bindParam(":postoAtendimento", $this->postoAtendimento);
         $stmt->bindParam(":dataNascimento", $this->dataNascimento);
-        $stmt->bindParam(":idcadPacientes", $this->idcadPacientes);
+        $stmt->bindParam(":cpf", $this->cpf);
     
         if($stmt->execute()){
             return true;
@@ -120,12 +117,13 @@ class Paciente{
     //Lista apenas um registro
 
     public function SingleOn(){
-        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE idcadPacientes = ?";
+        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE cpf = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(1, $this->idcadPacientes);
+        $stmt->bindParam(1, $this->cpf);
         $stmt->execute();
         $cadpacientes = $stmt->fetch(PDO::FETCH_ASSOC);
         
+        $this->idcadPacientes = $cadpacientes['idcadPacientes'];
         $this->nomePacientes = $cadpacientes['nomePacientes'];
         $this->cpf = $cadpacientes['cpf'];
         $this->cartaoSus = $cadpacientes['cartaoSus'];
@@ -134,6 +132,8 @@ class Paciente{
         $this->postoAtendimento = $cadpacientes['postoAtendimento'];
         $this->dataNascimento = $cadpacientes['dataNascimento'];
         $this->datacadPaciente = $cadpacientes['datacadPaciente'];
+        
+        
     }
 
 
@@ -157,9 +157,20 @@ class Paciente{
         }
         return false;
     }
-
-
-
     
+        //Fazer BUscarPacienete
+    
+    public function BuscarPaciente(){
+        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE cpf = :cpf";
+        $stmt = $this->conn->prepare($sql);
+        
+        $this->cpf=htmlspecialchars(strip_tags($this->cpf));
+        
+        $stmt->bindParam(":cpf", $this->cpf);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
 }
 ?>

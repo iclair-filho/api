@@ -1,9 +1,9 @@
 <?php 
     class Database {
         private $host = "localhost";
-        private $database_name = "db_saude";
-        private $username = "root";
-        private $password = "";
+        private $database_name = "ivfassess_api_faculdade";
+        private $username = "ivfassess_ivfassessoria";
+        private $password = "ivf@201919!";
         public $conn;
         public function getConnection(){
             $this->conn = null;

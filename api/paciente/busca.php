@@ -6,33 +6,36 @@
     header("Access-Control-Allow-Methods: POST");
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    
-
 
     include_once '../../config/db.php';
     include_once '../../class/pacientes.php';
-
+    
     //Instanciar as Classes
     $database = new Database();
     $db = $database->getConnection();
-    $paciente = new Paciente($db);
+    $paciente= new Paciente($db);
+    
 
-    //Arquivo ou URL para Buscar os dados Inputs
+    
     $data = json_decode(file_get_contents("php://input"), TRUE);
 
-    $paciente->nomePacientes = $data['nomePacientes'];
     $paciente->cpf = $data['cpf'];
-    $paciente->cartaoSus = $data['cartaoSus'];
-    $paciente->endereco = $data['endereco'];
-    $paciente->telefone = $data['telefone'];
-    $paciente->postoAtendimento = $data['postoAtendimento'];
-    $paciente->dataNascimento = $data['dataNascimento'];
-    $paciente->datacadPaciente = date('Y-m-d H:i:s');
     
-    if($paciente->Save()){
-        echo json_encode ('Paciente cadastrado com Sucesso!.');
-    } else{
-        echo json_encode ('Erro, não foi possível cadastrar!');
-    }
-
+    $paciente->BuscarPaciente();
+    $npaciente = $paciente->BuscarPaciente()->rowCount(); 
+    
+    
+    
+  if($paciente->cpf!=''){
+      if($npaciente==0){
+      echo json_encode('Paciente não cadastrado! Cadastre-o.');				
+      }
+      else{		
+      echo json_encode('ok');				
+      }
+      
+	}	
+	else{
+	  echo json_encode('Erro, tente novamente!');
+	}
 ?>

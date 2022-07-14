@@ -31,7 +31,7 @@
             //Construção da Array
             $e = array(
                 "idcadUsuarios" => $idcadUsuarios,
-                "nomeusuarios" => $nomeusuarios,
+                "nomeUsuarios" => $nomeUsuarios,
                 "cpf" => $cpf,
                 "senha" => $senha,
                 "tipo" => $tipo,

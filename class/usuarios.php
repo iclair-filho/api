@@ -38,12 +38,10 @@ class Usuarios{
                     nomeUsuarios = :nomeUsuarios, 
                     cpf = :cpf, 
                     senha = :senha, 
-                    tipo = :tipo, 
-                    telefone = :telefone, 
-                    postoAtendimento = :postoAtendimento, 
-                    dataNascimento = :dataNascimento";
+                    tipo = :tipo";
     
         $stmt = $this->conn->prepare($sql);
+        
     
         // sanitize
         $this->nomeUsuarios=htmlspecialchars(strip_tags($this->nomeUsuarios));
@@ -87,7 +85,7 @@ class Usuarios{
         $this->idcadUsuarios=htmlspecialchars(strip_tags($this->idcadUsuarios));
     
         // bind data
-        $stmt->bindParam(":nomeUsuarios", $this->nomeUsuarios);
+        $stmt->bindParam(":nomeUsuarios", $this->nomeUsuarios,);
         $stmt->bindParam(":cpf", $this->cpf);
         $stmt->bindParam(":senha", $this->senha);
         $stmt->bindParam(":tipo", $this->tipo);
@@ -102,17 +100,17 @@ class Usuarios{
     //Lista apenas um registro
 
     public function SingleOn(){
-        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE idcadUsuarios = ?";
+        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE cpf = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(1, $this->idcadUsuarios);
+        $stmt->bindParam(1, $this->cpf);
         $stmt->execute();
-        $cadpacientes = $stmt->fetch(PDO::FETCH_ASSOC);
+        $cadusuario = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        $this->nomeUsuarios = $cadpacientes['nomeUsuarios'];
-        $this->cpf = $cadpacientes['cpf'];
-        $this->senha = $cadpacientes['senha'];
-        $this->tipo = $cadpacientes['tipo'];
-        $this->datacadUsuarios = $cadpacientes['datacadUsuarios'];
+        $this->nomeUsuarios = $cadusuario['nomeUsuarios'];
+        $this->cpf = $cadusuario['cpf'];
+        $this->senha = $cadusuario['senha'];
+        $this->tipo = $cadusuario['tipo'];
+        $this->datacadUsuarios = $cadusuario['datacadUsuarios'];
     }
 
 
@@ -135,6 +133,27 @@ class Usuarios{
             return true;
         }
         return false;
+    }
+    
+    //Fazer Login
+    
+    public function Login(){
+        $sql = "SELECT * FROM " . $this->db_tabela . " WHERE cpf = :cpf AND senha= :senha";
+        $stmt = $this->conn->prepare($sql);
+        
+        
+        $this->cpf=htmlspecialchars(strip_tags($this->cpf));
+        $this->senha=htmlspecialchars(strip_tags($this->senha));
+        
+        $stmt->bindParam(":cpf", $this->cpf);
+        $stmt->bindParam(":senha", $this->senha);
+        $stmt->execute();
+
+        return $stmt;
+        
+
+       
+        
     }
 
 

@@ -16,11 +16,16 @@
     $database = new Database();
     $db = $database->getConnection();
     $paciente = new Paciente($db);
-    $paciente->idcadPacientes = isset($_GET['idcadPacientes']) ? $_GET['idcadPacientes'] : die();
+    $paciente->cpf = isset($_GET['cpf']) ? $_GET['cpf'] : die();
     
     $paciente->SingleOn();
     
-    if ($paciente->nome != NULL) {
+    
+    
+    if ($paciente->cpf != NULL) {
+        
+        $pacienteArray = array();
+        $pacienteArray["body"] = array();
            //Construção da Array
             $e = array(
                 "idcadPacientes" => $paciente->idcadPacientes,
@@ -33,6 +38,7 @@
                 "dataNascimento" => $paciente->dataNascimento,
                 "datacadPaciente" => $paciente->datacadPaciente
             );
+            array_push($pacienteArray["body"], $e);
 
         
         //View da Json

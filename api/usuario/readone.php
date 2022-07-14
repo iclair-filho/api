@@ -16,11 +16,11 @@
     $database = new Database();
     $db = $database->getConnection();
     $usuario = new Usuarios($db);
-    $usuario->idcadUsuarios = isset($_GET['idcadUsuarios']) ? $_GET['idcadUsuarios'] : die();
+    $usuario->cpf = isset($_GET['cpf']) ? $_GET['cpf'] : die();
     
     $usuario->SingleOn();
     
-    if ($usuario->nome != NULL) {
+    if ($usuario->nomeUsuarios != NULL) {
            //Construção da Array
             $e = array(
                 "idcadUsuarios" => $usuario->idcadUsuarios,
